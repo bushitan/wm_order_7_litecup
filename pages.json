@@ -1,0 +1,146 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		
+		{
+			"path": "pages/route/route",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/good/good",
+			"style": {				
+				"borderStyle": "white",
+				"backgroundColor": "#efaf30"
+			}
+		},
+		{
+			"path": "pages/live/live",
+			"style": {				
+				"borderStyle": "white",
+				"backgroundColor": "#efaf30"
+			}
+		},
+		{
+			"path": "pages/live/add",
+			"style": {				
+				"navigationBarTitleText": "增加/编辑",
+				"borderStyle": "white",
+				"backgroundColor": "#efaf30"
+			}
+		},
+		{
+			"path": "pages/live/sort",
+			"style": {				
+				"navigationBarTitleText": "排序编辑",
+				"borderStyle": "white",
+				"backgroundColor": "#efaf30"
+			}
+		},
+		{
+			"path": "pages/menu/menu",
+			"style": {
+				"navigationBarTitleText": "惠商城"	
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "StrongCoffee",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path": "pages/order/current",
+			"style": {
+				"navigationBarTitleText": "我的订单"
+			}
+		},
+		
+		{
+			"path": "pages/my/my",
+			"style": {				
+				"navigationBarTitleText": "我的信息"
+			}
+		},
+		{
+			"path": "pages/my/address",
+			"style": {				
+				"navigationBarTitleText": "我的地址"
+			}
+		},
+		
+		{
+			"path": "pages/order/pay",
+			"style": {
+				"navigationBarTitleText": "订单支付"				
+			}
+		},
+		{
+			"path": "pages/order/detail",
+			"style": {
+				"navigationBarTitleText": "订单详情"
+			}
+		},
+		{
+			"path": "pages/order/list",
+			"style": {				
+				"navigationBarTitleText": "订单中心"
+			}
+		},
+		{
+			"path": "pages/wx/wxpay",
+			"style": {				
+				"navigationBarTitleText": "微信支付"
+			}
+		},
+		
+		{
+			"path": "pages/test/test",
+			"style": {				
+				"navigationBarTitleText": "测试"
+			}
+		}
+		
+	],
+	"tabBar": {
+		"color": "#bfbfbf",
+		"selectedColor": "#efaf30",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [
+			{
+				"pagePath": "pages/live/live",
+				"iconPath": "static/images/icon/order_un.png",
+				"selectedIconPath": "static/images/icon/order.png",
+				"text": "活动"
+			},
+			{
+				"pagePath": "pages/menu/menu",
+				"iconPath": "static/images/icon/menu_un.png",
+				"selectedIconPath": "static/images/icon/menu.png",
+				"text": "商城"
+			},
+			{
+				"pagePath": "pages/my/my",
+				"iconPath": "static/images/icon/my_un.png",
+				"selectedIconPath": "static/images/icon/my.png",				
+				"text": "我的"
+			}
+		]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "小杯子精选商城",
+		"navigationBarBackgroundColor": "#ffffff",
+		"backgroundColor": "#F8F8F8"  //,"navigationStyle": "custom"
+	}
+	// ,
+    // "plugins": {
+    //     "live-player-plugin": {
+    //         "version": "1.0.3", 
+    //         "provider": "wx2b03c6e691cd7370" 
+    //     }
+    // }
+
+}

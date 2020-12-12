@@ -29,21 +29,18 @@
 		            </view>
 		            <view class="action">
 						<text class="text-yellow text-bold" v-if="order.order_status_code==ORDER_STATUS_PENDING">（30分钟内有效）去支付</text>
-						<text class="text-yellow text-bold" v-if="order.order_status_code==ORDER_STATUS_PROCESSING">{{order.order_status}}</text>
+						
+						<view v-if="order.order_status_code==ORDER_STATUS_PROCESSING">
+							<image class="cu-avatar bg-white sm margin-right-xs" src="/static/images/icon/qr.png" ></image>
+							<text class="text-yellow text-bold" > 待使用</text>
+						</view>
+						
 						<text class="text-yellow text-bold" v-if="order.order_status_code==ORDER_STATUS_COMPLETE">{{order.order_status}}</text>
 						<text class="text-yellow text-bold" v-if="order.order_status_code==ORDER_STATUS_CANCEL">{{order.payment_status}}</text>
 						<view class="pg-arrow-sm"></view>
 		            </view>
 		        </view>
-				<view class="cu-list menu ">
-					<!-- <view class="cu-item " >
-						<view class="action text-gray text-sm">下单门店</view>
-						<view class="action text-sm">{{order.store_name}}</view>
-					</view>					
-					<view class="cu-item ">
-						<view class="action text-gray text-sm">	取单方式</view>
-						<view class="action text-sm">{{order.ship_method_desc}}</view>
-					</view> -->	
+				<view class="cu-list menu ">				
 					<view class="cu-item margin-tb-sm " style="align-items: flex-start;"
 					 v-for="(item,j) in order.order_items">
 						<view class="action">
@@ -55,19 +52,13 @@
 						</view>
 						<view class="content ">
 							<view class="text-black   text">{{item.product.name}}</view>
-							<!-- <view class="text-gray   text-sm">{{item.attr_desc}}</view> -->
 							<view class="text-gray   text-sm">数量：{{item.quantity}}</view>
 						</view>
-						<!-- <view class="action">
-							<view class="text-gray   text-sm">x{{item.quantity}}</view>
-						</view> -->
 					</view>
 				</view>
 				<view class="cu-bar  solid-bottom ">
 				    <view class="action"></view>
 				    <view class="action">						
-						<!-- <text class="text-gray  text-sm margin-right">共3件商品</text>		 -->
-						
 						<text class="text-gray  text-sm margin-right-xs">合计</text>						
 						<text class=" text-xl text-black text-bold text-price"></text>
 						<text class=" text-xl text-black text-bold">{{order.order_total}}</text>
@@ -102,7 +93,7 @@
 				
 				SortMenu: [
 					{id:0,name:"未支付"},
-					{id:1,name:"进行中"},
+					{id:1,name:"待使用"},
 					{id:2,name:"已完成"},
 					{id:3,name:"退款"},
 				],
@@ -176,7 +167,7 @@
 				if(id == 0) {
 					Status = this.db.ORDER_STATUS_PENDING
 				} 
-				// 已完成
+				//  待使用
 				if(id == 1) {
 					Status = this.db.ORDER_STATUS_PROCESSING
 				}

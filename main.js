@@ -16,6 +16,9 @@ import tabbar from '@/components/tabbar/tabbar.vue'
 Vue.component('tabbar', tabbar)
 import Footer from '@/components/footer.vue'
 Vue.component('footer', Footer)
+//二维码插件
+import tkiQrcode from "@/components/tki-qrcode/tki-qrcode.vue"
+Vue.component('tki-qrcode', tkiQrcode)
 
 Vue.prototype.ShopID = 87
 

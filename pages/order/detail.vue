@@ -2,6 +2,7 @@
 	<view class="">	
 		<view class="text-xl text-bold flex justify-between align-center padding">
            <view>
+				<text class="cuIcon-titles text-yellow"></text>
 			   <text >订单ID：{{order.id}}</text>
                 <!-- <text v-if="order.customertaketype == SHOP_TAKE_WM">订单ID：{{order.id}}</text> -->
                 
@@ -13,7 +14,18 @@
 				class="cu-btn round bg-yellow text-white" 
 				@click="clickPay">支付订单</button>
 		</view>
-		
+		<view v-if="order.order_status_code == ORDER_STATUS_PROCESSING">
+			<view class="flex justify-center ">
+				<tki-qrcode
+				ref="qrcode"
+				cid="cid"
+				:val="order.guid"
+				size="400"
+				:loadMake="true"
+				@result="qrR" />
+			</view>
+			<view class="text-center text-bold text-xl padding">店员扫码核销</view>
+		</view>
 			<view class="cu-card padding-lr ">
 				<view class=" bg-white pg-radius  shadow shadow-warp">
 					<view class="cu-bar  solid-bottom ">
@@ -82,8 +94,7 @@
 						<view class="action text-gray text-sm">下单门店</view>
 						<view class="action text-sm">{{order.store_name}}</view>
 					</view> -->
-					<view class="cu-item margin-tb-sm" style="align-items: flex-start;"
-					v-for="(item,key) in order.order_items" v:bind-key="key">
+					<view class="cu-item margin-tb-sm" style="align-items: flex-start;" v-for="(item,key) in order.order_items" v:bind-key="key">
 						<view class="action">
 							<image :src='item.product.images[0]' 
 								class="cu-avatar radius lg  bg-gray margin-right-sm " 
@@ -451,6 +462,7 @@
 </template>
 
 <script>
+	var interval
 	export default {
 		data(){
 			return {				
@@ -482,6 +494,13 @@
 				orderId:options.orderId || ""
 			})
 			this.onInit()
+			
+			
+		},
+		onUnload(){
+			// 清理interval
+			if(interval)
+				clearInterval(interval)
 		},
 		
 		methods:{
@@ -493,6 +512,30 @@
 				this.setData({
 					order:res.data
 				})
+				
+				//订单状态为待使用，则重复请求
+				if(res.data.order_status_code == this.db.ORDER_STATUS_PROCESSING){
+					interval = setInterval( ()=> this.checkOrderComplete() , 5000)
+				}
+			},
+			
+			// 检查订单是否已经完成
+			async checkOrderComplete(){
+				var res = await this.db.orderGetDetail({
+					orderId:this.$data.orderId
+				})
+				if(res.data.order_status_code == this.db.ORDER_STATUS_COMPLETE){
+					uni.showModal({
+						title:"核销成功",
+						showCancel:false,
+						success:()=>{
+							var page = getCurrentPages()
+							var prePage = page[page.length-2]
+							prePage.$vm.tabSelect(2)
+							uni.navigateBack()
+						}
+					})
+				}
 			},
 			
 			back(){
@@ -532,6 +575,10 @@
 				uni.makePhoneCall({
 					phoneNumber : "3468732874",
 				})
+			},
+			
+			qrR(e){
+				console.log(e)
 			},
 		}
 	}
